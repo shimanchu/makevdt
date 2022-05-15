@@ -30,16 +30,21 @@ ffmpegを使って、1.の動画ファイルから音声データをWAVファイ
 ffmpeg -i input.mp4 -vn -ar 15625 -ac 1 -f wav audio.wav
 ```
 次に、各種フリーソフト等を使って、WAVファイルをX68kのADPCMファイルに変換します。\
-実機での変換には時間がかかるので、XM6などのエミュレータでMPUをノーウェイトにして実行すると良いでしょう。
+X68k実機での変換には時間がかかるので、XM6などのエミュレータでMPUをノーウェイトにして実行すると良いでしょう。
 
-### [pcm3pcm](https://www.vector.co.jp/soft/dl/x68/art/se019752.html)を使う場合
+### [pcm3pcm](https://www.vector.co.jp/soft/dl/x68/art/se019752.html)を使う場合（X68kで実行）
 ```dos
 pcm3pcm.x audio.wav audio.pcm
 ```
 
-### [PCMCONV](https://www.vector.co.jp/soft/dos/art/se004506.html)を使う場合
+### [PCMCONV](https://www.vector.co.jp/soft/dos/art/se004506.html)を使う場合（X68kで実行）
 ```dos
 PCMCONV.X -ir15625 -or0 -if2 -of8 audio.wav audio.pcm
+```
+
+### [PCMCONV](https://www.vector.co.jp/soft/dos/art/se004506.html)を使う場合（[MS-DOS Player for Win32-x64](http://takeda-toshiya.my.coocan.jp/)経由でWindowsで実行）
+```dos
+MSDOS PCMCONV.EXE -ir15625 -or0 -if2 -of8 audio.wav audio.pcm
 ```
 
 ## 4. makevdtを使ってVDTファイルを作成
