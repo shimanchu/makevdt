@@ -1,3 +1,4 @@
+const cliProgress = require('cli-progress');
 const fs = require('fs');
 const program = require('commander');
 const PNGReader = require('png.js');
@@ -102,6 +103,9 @@ const parsePromise = (reader) => {
     const adpcmSize = fs.statSync(options.adpcm).size;
     const adpcmBuf = fs.readFileSync(options.adpcm);
     let adpcmOffset = 0;
+    // Progress bar
+    const progressBar = new cliProgress.SingleBar({}, { ...cliProgress.Presets.shades_classic, format: ' {bar} {percentage}% | ETA: {eta}s | {value}/{total} frames processed', hideCursor: true });
+    progressBar.start(options.fileNum);
     for (let i = 1; i <= options.fileNum; i++) {
         const pngFilename = options.prefix + ('0'.repeat(options.digits) + i).slice(-options.digits) + '.png';
         const png = await parsePromise(new PNGReader(await readFilePromise(pngFilename)));
@@ -130,14 +134,15 @@ const parsePromise = (reader) => {
             }
         }
         if (i % (60 / options.timeScale) === 0 || i === Number(options.fileNum)) {
-            process.stdout.write(`\r${i} of ${options.fileNum} frames processed`);
+            progressBar.update(i);
         }
     }
+    progressBar.stop();
 
     // Output to file
     fs.writeFile(options.outfile, dataView, (err) => {
         if (err) throw err;
-        console.log(`\nOutput to ${options.outfile}`);
+        console.log(`Output to ${options.outfile}`);
     });
 })().catch((error) => {
     console.log(error);
