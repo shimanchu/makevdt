@@ -22,9 +22,9 @@ const iconv = new Iconv('UTF-8', 'SHIFT_JIS');
 const textEncoder = new TextEncoder();
 
 // Fixed parameters
-const flameLength = 30720;
-const flameWidth = 128;
-const flameHeight = 120;
+const frameLength = 30720;
+const frameWidth = 128;
+const frameHeight = 120;
 const isLittleEndian = false;
 
 let adpcmRateHz = 0;
@@ -39,7 +39,7 @@ case 4:
 const convertedCommentBuffer = iconv.convert(options.comment);
 const headerSize = 0x7aaa + convertedCommentBuffer.length;
 const voiceSize = adpcmRateHz / 2 / (60 / options.timeScale);
-const bufferSize = headerSize + options.fileNum * (flameLength + voiceSize);
+const bufferSize = headerSize + options.fileNum * (frameLength + voiceSize);
 const dataView = new DataView(new ArrayBuffer(bufferSize));
 
 let offset = 0;
@@ -54,10 +54,10 @@ convertedCommentBuffer.forEach(c => {
 });
 dataView.setInt8(offset, 0x0a, isLittleEndian); offset++;
 // - poster image size
-dataView.setInt32(offset, flameLength, isLittleEndian); offset += 4;
+dataView.setInt32(offset, frameLength, isLittleEndian); offset += 4;
 // - poster image data
-for (let y = 0; y < flameHeight; y++) {
-    for (let x = 0; x < flameWidth; x++) {
+for (let y = 0; y < frameHeight; y++) {
+    for (let x = 0; x < frameWidth; x++) {
         dataView.setInt16(offset, 0x1234, isLittleEndian); offset += 2;
     }
 }
@@ -75,7 +75,7 @@ for (let i = 0; i < voiceSize; i++) {
 dataView.setInt32(offset, options.timeScale, isLittleEndian); offset += 4;
 // - ADPCM rate
 dataView.setInt32(offset, options.adpcmRate, isLittleEndian); offset += 4;
-// - flame number
+// - frame number
 dataView.setInt32(offset, options.fileNum, isLittleEndian); offset += 4;
 
 // promise functions
@@ -105,13 +105,13 @@ const parsePromise = (reader) => {
     for (let i = 1; i <= options.fileNum; i++) {
         const pngFilename = options.prefix + ('0'.repeat(options.digits) + i).slice(-options.digits) + '.png';
         const png = await parsePromise(new PNGReader(await readFilePromise(pngFilename)));
-        // - flame image data
-        for (let y = 0; y < flameHeight; y++) {
-            for (let x = 0; x < flameWidth; x++) {
+        // - frame image data
+        for (let y = 0; y < frameHeight; y++) {
+            for (let x = 0; x < frameWidth; x++) {
                 const pixel = options.resize
                     ? png.getPixel(
-                        Math.round(x / flameWidth * png.getWidth()),
-                        Math.round(y / flameHeight * png.getHeight()))
+                        Math.round(x / frameWidth * png.getWidth()),
+                        Math.round(y / frameHeight * png.getHeight()))
                     : png.getPixel(
                         Math.round(x),
                         Math.round(y));
@@ -123,14 +123,14 @@ const parsePromise = (reader) => {
             }
         }
 
-        // - flame voice data
+        // - frame voice data
         for (let j = 0; j < voiceSize; j++) {
             if (adpcmOffset < adpcmSize) {
                 dataView.setUint8(offset, adpcmBuf.readUint8(adpcmOffset)); adpcmOffset++; offset++;
             }
         }
         if (i % (60 / options.timeScale) === 0 || i === Number(options.fileNum)) {
-            process.stdout.write(`\r${i} of ${options.fileNum} flames processed`);
+            process.stdout.write(`\r${i} of ${options.fileNum} frames processed`);
         }
     }
 
