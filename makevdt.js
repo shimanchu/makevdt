@@ -104,7 +104,7 @@ const parsePromise = (reader) => {
     const adpcmBuf = fs.readFileSync(options.adpcm);
     let adpcmOffset = 0;
     // Progress bar
-    const progressBar = new cliProgress.SingleBar({}, { ...cliProgress.Presets.shades_classic, format: ' {bar} {percentage}% | ETA: {eta}s | {value}/{total} frames processed', hideCursor: true });
+    const progressBar = new cliProgress.SingleBar({ format: ' {bar} {percentage}% | ETA: {eta}s | {value}/{total} frames processed', hideCursor: true }, cliProgress.Presets.shades_classic);
     progressBar.start(options.fileNum);
     for (let i = 1; i <= options.fileNum; i++) {
         const pngFilename = options.prefix + ('0'.repeat(options.digits) + i).slice(-options.digits) + '.png';
