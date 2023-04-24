@@ -1,4 +1,5 @@
 # makevdt
+[English README is here](README-en.md)
 
 ## 概要
 MP4等の動画ファイルから、VDTファイル（X680x0で使われる動画形式）を作成します。
