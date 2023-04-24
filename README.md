@@ -37,12 +37,12 @@ X68k実機での変換には時間がかかるので、XM6などのエミュレ�
 pcm3pcm.x audio.wav audio.pcm
 ```
 
-### [PCMCONV](https://www.vector.co.jp/soft/dos/art/se004506.html)を使う場合（X68kで実行）
+### [PCMCONV](https://www.vector.co.jp/soft/x68/art/se031966.html)を使う場合（X68kで実行）
 ```dos
 PCMCONV.X -ir15625 -or0 -if2 -of8 audio.wav audio.pcm
 ```
 
-### [PCMCONV](https://www.vector.co.jp/soft/dos/art/se004506.html)を使う場合（[MS-DOS Player for Win32-x64](http://takeda-toshiya.my.coocan.jp/)経由でWindowsで実行）
+### [PCMCONV](https://www.vector.co.jp/soft/x68/art/se031966.html)を使う場合（[MS-DOS Player for Win32-x64](http://takeda-toshiya.my.coocan.jp/)経由でWindowsで実行）
 ```dos
 MSDOS PCMCONV.EXE -ir15625 -or0 -if2 -of8 audio.wav audio.pcm
 ```
