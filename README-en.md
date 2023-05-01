@@ -49,7 +49,7 @@ MSDOS PCMCONV.EXE -ir15625 -or0 -if2 -of8 audio.wav audio.pcm
 Input the image files created in step 2 and the ADPCM file created in step 3 to makevdt and output the VDT file.
 
 ```bash
-node makevdt.js -p image_ -n 1000 -t 5 -a audio.pcm -o output.vdt
+npx ts-node src/makevdt.ts -p image_ -n 1000 -t 5 -a audio.pcm -o output.vdt
 ```
 
 The meaning of each option is as follows:
