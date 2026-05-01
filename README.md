@@ -68,6 +68,7 @@ npx ts-node src/makevdt.ts -p image_ -n 1000 -t 5 -a audio.pcm -o output.vdt
 |--digits|-|画像ファイルの連番の桁数 (default: 4)|
 |--adpcm-rate|-|ADPCMレート（0: 無音, 3: 7.8KHz, 4: 15.6KHz） (default: 4)|
 |--no-resize|-|画像ファイルをリサイズしない (default: リサイズする)|
+|--poster-image|-|ポスター画像ファイル (default: "")|
 
 # その他
 

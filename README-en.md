@@ -65,6 +65,7 @@ The meaning of each option is as follows:
 |--digits|-|Number of digits in the sequential number of image files (default: 4)|
 |--adpcm-rate|-|ADPCM rate (0: no sound, 3: 7.8KHz, 4: 15.6KHz） (default: 4)|
 |--no-resize|-|Do not resize image files (default: resize)|
+|--poster-image|-|Poster image file (default: "")|
 
 # Others
 
