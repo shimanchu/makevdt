@@ -2,7 +2,7 @@ import cliProgress from 'cli-progress';
 import fs from 'fs';
 import { Command } from 'commander';
 import PNGReader from 'png.js';
-import { Iconv } from 'iconv';
+import iconv from 'iconv-lite';
 
 const program = new Command();
 program
@@ -28,7 +28,6 @@ program
     .parse(process.argv);
 
 const options = program.opts();
-const iconv = new Iconv('UTF-8', 'SHIFT_JIS');
 const textEncoder = new TextEncoder();
 
 // promise functions
@@ -65,7 +64,7 @@ switch (options.adpcmRate) {
         adpcmRateHz = 15600;
         break;
 }
-const convertedCommentBuffer = iconv.convert(options.comment);
+const convertedCommentBuffer = iconv.encode(options.comment, 'Shift_JIS');
 const headerSize = 0x7aaa + convertedCommentBuffer.length;
 const voiceSize = adpcmRateHz / 2 / (60 / options.timeScale);
 const bufferSize = headerSize + options.fileNum * (frameLength + voiceSize);
