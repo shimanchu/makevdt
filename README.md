@@ -73,3 +73,10 @@ npx tsx src/makevdt.ts -p image_ -n 1000 -t 5 -a audio.pcm -o output.vdt
 # その他
 
 - VDTデータの仕様は[SivPack](https://www.vector.co.jp/soft/x68/art/se027692.html)のSIV_VDT.TXTを参照しました
+
+## 回帰テスト
+
+Node.js 18以上で、`npm ci` の後に `npm test` を実行します。
+固定の合成PNG・音声データを実際のCLIに入力し、生成VDTがmainから保存した基準ファイルと全バイト一致することを確認します。
+テスト用の入力データはリポジトリに同梱されています。
+対象ケースと基準ファイルの扱いは [test/fixtures/README.md](test/fixtures/README.md) を参照してください。

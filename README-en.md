@@ -70,3 +70,10 @@ The meaning of each option is as follows:
 # Others
 
 - The specification of the VDT data was referred to SIV_VDT.TXT of [SivPack](https://www.vector.co.jp/soft/x68/art/se027692.html).
+
+## Regression tests
+
+With Node.js 18 or newer, run `npm ci` followed by `npm test`.
+The tests run the actual CLI with fixed synthetic PNG and audio inputs and verify that the generated VDT files match the saved main-branch baselines byte for byte.
+The test inputs are included in the repository.
+See [test/fixtures/README.md](test/fixtures/README.md) for the test cases and baseline update procedure.
