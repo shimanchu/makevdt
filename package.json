@@ -9,7 +9,7 @@
     "fix:prettier": "prettier --write src/*.ts",
     "check:prettier": "prettier --check src/*.ts",
     "check": "npm run check:prettier && npm run lint",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test/regression.test.mjs"
   },
   "author": "",
   "license": "ISC",
